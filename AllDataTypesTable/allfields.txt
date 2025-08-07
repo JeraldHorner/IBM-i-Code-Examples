@@ -1,0 +1,45 @@
+SET CURRENT SCHEMA = 'JHORNER21';
+
+CREATE TABLE JHORNER21/ALL_FIELD_TYPES (
+    -- Character types
+    CHAR_FIELD        CHAR(10),            -- Fixed-length character
+    VARCHAR_FIELD     VARCHAR(50),         -- Varying-length character
+    CLOB_FIELD        CLOB(1K),            -- Character large object
+
+    -- Numeric types
+    SMALLINT_FIELD    SMALLINT,            -- 2-byte integer
+    INTEGER_FIELD     INTEGER,             -- 4-byte integer
+    BIGINT_FIELD      BIGINT,              -- 8-byte integer
+    DECIMAL_FIELD     DECIMAL(9, 2),        -- Packed decimal
+    NUMERIC_FIELD     NUMERIC(5, 0),        -- Equivalent to DECIMAL
+    FLOAT_FIELD       FLOAT(8),            -- Approximate float (double)
+    REAL_FIELD        REAL,                -- Single-precision float
+    DOUBLE_FIELD      DOUBLE,              -- Double-precision float
+
+    -- Date and time types
+    DATE_FIELD        DATE,                -- Date only
+    TIME_FIELD        TIME,                -- Time only
+    TIMESTAMP_FIELD   TIMESTAMP,           -- Date + time + fractional seconds
+
+    -- Binary types
+    BINARY_FIELD      BINARY(8),           -- Fixed-length binary
+    VARBINARY_FIELD   VARBINARY(100),      -- Varying-length binary
+    BLOB_FIELD        BLOB(1K),            -- Binary large object
+
+    -- Boolean (IBM i supports it natively in newer versions)
+    BOOLEAN_FIELD     BOOLEAN DEFAULT FALSE,
+
+    -- RowID (unique internal identifier)
+    ROWID_FIELD       ROWID,
+
+    -- XML type
+    XML_FIELD         XML,
+
+    -- DATALINK type (rarely used)
+    DATALINK_FIELD    DATALINK,
+
+    -- DEFAULT primary key for testing
+    ID_FIELD          INTEGER GENERATED ALWAYS AS IDENTITY
+                        PRIMARY KEY
+
+);

@@ -1,0 +1,108 @@
+-- =====================================================================
+-- Insert Sample Data Script for ALL_FIELD_TYPES Table
+-- Library: MYLIBRARY (change from JHORNER21 as needed)
+--
+-- AUTHOR: Jerald Horner
+-- EMAIL: JeraldHorner@StructuredSys.Com
+-- PHONE: 214-704-6178
+-- DATE: Created for training purposes
+--
+-- USAGE:
+-- 1. Update library name if needed (JHORNER21 -> MYLIBRARY)
+-- 2. Run this script after creating the ALL_FIELD_TYPES table
+-- 3. Use RUNSQLSTM or run in STRSQL session
+-- =====================================================================
+
+-- Use qualified table name if running in STRSQL
+INSERT INTO JHORNER21.ALL_FIELD_TYPES (
+    CHAR_FIELD,
+    VARCHAR_FIELD,
+    CLOB_FIELD,
+    SMALLINT_FIELD,
+    INTEGER_FIELD,
+    BIGINT_FIELD,
+    DECIMAL_FIELD,
+    NUMERIC_FIELD,
+    FLOAT_FIELD,
+    REAL_FIELD,
+    DOUBLE_FIELD,
+    DATE_FIELD,
+    TIME_FIELD,
+    TIMESTAMP_FIELD,
+    BINARY_FIELD,
+    VARBINARY_FIELD,
+    BLOB_FIELD,
+    BOOLEAN_FIELD,
+    ROWID_FIELD,
+    XML_FIELD,
+    DATALINK_FIELD
+) VALUES (
+    'SAMPLE2   ',                                    -- CHAR(10) - padded
+    'Jane Smith Customer Record',                    -- VARCHAR(50)
+    CAST('This is a sample CLOB field with longer text' AS CLOB), -- CLOB
+    123,                                             -- SMALLINT
+    987654,                                          -- INTEGER
+    1234567890123,                                   -- BIGINT
+    12345.67,                                        -- DECIMAL(9,2)
+    98765,                                           -- NUMERIC(5,0)
+    123.456,                                         -- FLOAT
+    78.9,                                            -- REAL
+    456.789012,                                      -- DOUBLE
+    DATE('2025-01-07'),                              -- DATE
+    TIME('12:30:25'),                                -- TIME
+    TIMESTAMP('2025-01-07-12.30.25.123456'),         -- TIMESTAMP
+    CAST(x'3132333435363738' AS BINARY(8)),          -- BINARY(8) - '12345678'
+    CAST(x'414243444546' AS VARBINARY(6)),           -- VARBINARY - 'ABCDEF'
+    CAST(x'53616D706C652062696E6172792064617461' AS BLOB), -- BLOB - 'Sample binary data'
+    1,                                               -- BOOLEAN as SMALLINT or CHAR(1)
+    DEFAULT,                                         -- ROWID (system-generated)
+    XMLPARSE(DOCUMENT '<customer><name>John</name><id>1001</id></customer>'), -- XML
+    NULL                                             -- DATALINK (complex, using NULL)
+);
+
+
+INSERT INTO JHORNER21.ALL_FIELD_TYPES (
+    CHAR_FIELD,
+    VARCHAR_FIELD,
+    CLOB_FIELD,
+    SMALLINT_FIELD,
+    INTEGER_FIELD,
+    BIGINT_FIELD,
+    DECIMAL_FIELD,
+    NUMERIC_FIELD,
+    FLOAT_FIELD,
+    REAL_FIELD,
+    DOUBLE_FIELD,
+    DATE_FIELD,
+    TIME_FIELD,
+    TIMESTAMP_FIELD,
+    BINARY_FIELD,
+    VARBINARY_FIELD,
+    BLOB_FIELD,
+    BOOLEAN_FIELD,
+    ROWID_FIELD,
+    XML_FIELD,
+    DATALINK_FIELD
+) VALUES (
+    'SAMPLE1   ',                                    -- CHAR(10) - padded
+    'John Smith Customer Record',                    -- VARCHAR(50)
+    CAST('This is a sample CLOB field with longer text' AS CLOB), -- CLOB
+    123,                                             -- SMALLINT
+    987654,                                          -- INTEGER
+    1234567890123,                                   -- BIGINT
+    12345.67,                                        -- DECIMAL(9,2)
+    98765,                                           -- NUMERIC(5,0)
+    123.456,                                         -- FLOAT
+    78.9,                                            -- REAL
+    456.789012,                                      -- DOUBLE
+    DATE('2024-08-07'),                              -- DATE
+    TIME('14:30:25'),                                -- TIME
+    TIMESTAMP('2024-08-07-14.30.25.123456'),         -- TIMESTAMP
+    CAST(x'3132333435363738' AS BINARY(8)),          -- BINARY(8) - '12345678'
+    CAST(x'414243444546' AS VARBINARY(6)),           -- VARBINARY - 'ABCDEF'
+    CAST(x'53616D706C652062696E6172792064617461' AS BLOB), -- BLOB - 'Sample binary data'
+    1,                                               -- BOOLEAN as SMALLINT or CHAR(1)
+    DEFAULT,                                         -- ROWID (system-generated)
+    XMLPARSE(DOCUMENT '<customer><name>John</name><id>1001</id></customer>'), -- XML
+    NULL                                             -- DATALINK (complex, using NULL)
+);

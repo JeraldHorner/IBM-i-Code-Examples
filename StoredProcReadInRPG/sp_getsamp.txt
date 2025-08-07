@@ -1,0 +1,78 @@
+-- =====================================================================
+-- Source Member: SP_GETSAMP
+-- Stored Procedure Name: SP_GetSampleData
+-- Library: JHORNER21
+-- Type: SQLRPGLE or SQL.  I placed in QSQLSRC
+--
+-- COMPILATION INSTRUCTIONS:
+-- 1. Save this source in member SP_GETSAMP in JHORNER21/QSQLSRC
+-- 2. Compile using: RUNSQLSTM SRCFILE(JHORNER21/QSQLSRC) SRCMBR(SP_GETSAMP)
+-- 3. Alternative: Use CRTSQLRPGI if saved as SQLRPGLE source type
+--
+-- DESCRIPTION:
+-- Training stored procedure for teaching purposes
+-- Demonstrates returning multiple rows of generated data
+-- Does not read from any tables - generates sample customer data
+--
+-- AUTHOR: Jerald Horner
+-- EMAIL: JeraldHorner@StructuredSys.Com
+-- PHONE: 214-704-6178
+-- DATE: Created for training purposes
+-- =====================================================================
+
+-- Drop procedure if it exists (for development/testing)
+DROP PROCEDURE IF EXISTS JHORNER21.SP_GetSampleData;
+
+-- Create the stored procedure
+CREATE PROCEDURE JHORNER21.SP_GetSampleData()
+    LANGUAGE SQL
+    SPECIFIC SP_GetSampleData
+    READS SQL DATA
+    RESULT SETS 1
+
+BEGIN
+    -- Declare cursor for result set
+    DECLARE C1 CURSOR WITH RETURN FOR
+        SELECT
+            CustomerID,
+            CustomerFirstName,
+            CustomerLastName
+        FROM (
+            VALUES
+                (1001, 'John', 'Smith'),
+                (1002, 'Jane', 'Johnson'),
+                (1003, 'Michael', 'Williams'),
+                (1004, 'Sarah', 'Brown'),
+                (1005, 'David', 'Jones'),
+                (1006, 'Lisa', 'Garcia'),
+                (1007, 'Robert', 'Miller'),
+                (1008, 'Emily', 'Davis'),
+                (1009, 'James', 'Rodriguez'),
+                (1010, 'Jessica', 'Martinez')
+        ) AS SampleData(CustomerID, CustomerFirstName, CustomerLastName);
+
+    -- Open cursor to return result set
+    OPEN C1;
+
+END;
+
+-- Grant execute permission (adjust as needed for your security model)
+GRANT EXECUTE ON PROCEDURE JHORNER21.SP_GetSampleData TO PUBLIC;
+
+-- =====================================================================
+-- USAGE NOTES:
+--
+-- To call from RPG FREE format:
+--
+-- dcl-pr CallStoredProc;
+--   customerID packed(7: 0);
+--   firstName varchar(50);
+--   lastName varchar(50);
+-- end-pr;
+--
+-- Or use SQL in RPG:
+-- exec sql CALL JHORNER21.SP_GetSampleData;
+--
+-- The procedure returns a result set that can be processed
+-- using SQL cursors in your RPG program
+-- =====================================================================
