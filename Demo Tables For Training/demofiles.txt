@@ -1,0 +1,279 @@
+-- =====================================================================
+-- Order Management System Database Schema - IBM i
+-- Library: JHORNER21 (change as needed for your environment)
+--
+-- AUTHOR: Jerald Horner
+-- EMAIL: JeraldHorner@StructuredSys.Com
+-- PHONE: 214-704-6178
+-- DATE: Created for RPG Free and SQL training purposes
+--
+-- DESCRIPTION:
+-- Complete order management system with 5 related tables for
+-- demonstrating JOINs, CTEs, embedded SQL, and RPG Free programming
+-- ALL OBJECT NAMES ARE 10 CHARACTERS OR LESS FOR IBM i COMPLIANCE
+--
+-- COMPILATION INSTRUCTIONS:
+-- 1. Update schema name if needed (JHORNER21 -> YOUR_LIBRARY)
+-- 2. Run via RUNSQLSTM or execute in STRSQL session
+-- 3. Tables must be created in the order shown due to dependencies
+-- =====================================================================
+
+SET CURRENT SCHEMA = 'JHORNER21';
+
+-- =====================================================================
+-- TABLE 1: CATEGORIES - Product category lookup table
+-- =====================================================================
+CREATE TABLE JHORNER21/CATEGORIES (
+    CATEGORY_ID       INTEGER GENERATED ALWAYS AS IDENTITY
+                        PRIMARY KEY,             -- Auto-increment category ID
+    CATEGORY_CODE     CHAR(10) NOT NULL,       -- Short category code (ELECT, CLOTH, etc.)
+    CATEGORY_NAME     VARCHAR(50) NOT NULL,    -- Full category name
+    DESCRIPTION       VARCHAR(200),            -- Category description
+    ACTIVE_FLAG       CHAR(1) DEFAULT 'Y',     -- Y/N active status
+    CREATED_DATE      DATE DEFAULT CURRENT_DATE, -- When category was created
+    CREATED_TIME      TIMESTAMP DEFAULT CURRENT_TIMESTAMP -- Full timestamp
+);
+
+-- =====================================================================
+-- TABLE 2: CUSTOMERS - Customer master information
+-- =====================================================================
+CREATE TABLE JHORNER21/CUSTOMERS (
+    CUSTOMER_ID       INTEGER GENERATED ALWAYS AS IDENTITY
+                        PRIMARY KEY,             -- Auto-increment customer ID
+    CUSTOMER_CODE     CHAR(10) NOT NULL UNIQUE, -- External customer code
+    FIRST_NAME        VARCHAR(30) NOT NULL,     -- Customer first name
+    LAST_NAME         VARCHAR(40) NOT NULL,     -- Customer last name
+    COMPANY_NAME      VARCHAR(60),              -- Company name (if business)
+    EMAIL_ADDRESS     VARCHAR(80),              -- Email address
+    PHONE_NUMBER      VARCHAR(20),              -- Primary phone number
+
+    -- Address information
+    ADDRESS_LINE1     VARCHAR(50),              -- Street address line 1
+    ADDRESS_LINE2     VARCHAR(50),              -- Street address line 2
+    CITY              VARCHAR(30),              -- City
+    STATE             CHAR(2),                  -- State code (TX, CA, etc.)
+    ZIP_CODE          VARCHAR(10),              -- ZIP/postal code
+    COUNTRY           CHAR(3) DEFAULT 'USA',    -- Country code
+
+    -- Customer metrics
+    CREDIT_LIMIT      DECIMAL(11, 2) DEFAULT 0, -- Credit limit amount
+    CURRENT_BALANCE   DECIMAL(11, 2) DEFAULT 0, -- Current balance owed
+
+    -- Status and dates
+    CUSTOMER_TYPE     CHAR(1) DEFAULT 'R',      -- R=Retail, B=Business, W=Wholesale
+    ACTIVE_FLAG       CHAR(1) DEFAULT 'Y',      -- Y/N active status
+    CREATED_DATE      DATE DEFAULT CURRENT_DATE,
+    LAST_ORDER_DATE   DATE,                     -- Date of last order
+    CREATED_TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- =====================================================================
+-- TABLE 3: PRODUCTS - Product catalog
+-- =====================================================================
+CREATE TABLE JHORNER21/PRODUCTS (
+    PRODUCT_ID        INTEGER GENERATED ALWAYS AS IDENTITY
+                        PRIMARY KEY,             -- Auto-increment product ID
+    PRODUCT_CODE      VARCHAR(20) NOT NULL UNIQUE, -- SKU/Product code
+    PRODUCT_NAME      VARCHAR(60) NOT NULL,     -- Product name
+    DESCRIPTION       VARCHAR(200),             -- Product description
+    CATEGORY_ID       INTEGER NOT NULL,         -- Foreign key to CATEGORIES
+
+    -- Pricing information
+    UNIT_PRICE        DECIMAL(9, 2) NOT NULL,   -- Base selling price
+    COST_PRICE        DECIMAL(9, 2),            -- Our cost for the product
+    LIST_PRICE        DECIMAL(9, 2),            -- Manufacturer list price
+
+    -- Inventory information
+    QTY_ON_HAND       INTEGER DEFAULT 0,        -- Current inventory quantity
+    QTY_ON_ORDER      INTEGER DEFAULT 0,        -- Quantity on order from vendor
+    REORDER_POINT     INTEGER DEFAULT 0,        -- When to reorder
+    REORDER_QTY       INTEGER DEFAULT 0,        -- How many to reorder
+
+    -- Product attributes
+    UNIT_OF_MEASURE   CHAR(3) DEFAULT 'EA',     -- EA, LB, FT, etc.
+    WEIGHT            DECIMAL(7, 2),            -- Product weight
+    TAXABLE_FLAG      CHAR(1) DEFAULT 'Y',      -- Y/N taxable
+
+    -- Status and dates
+    ACTIVE_FLAG       CHAR(1) DEFAULT 'Y',      -- Y/N active status
+    CREATED_DATE      DATE DEFAULT CURRENT_DATE,
+    LAST_SOLD_DATE    DATE,                     -- Date last sold
+    CREATED_TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- Foreign key constraint
+    CONSTRAINT FK_PROD_CAT
+        FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORIES(CATEGORY_ID)
+);
+
+-- =====================================================================
+-- TABLE 4: ORDERS - Order header information
+-- =====================================================================
+CREATE TABLE JHORNER21/ORDERS (
+    ORDER_ID          INTEGER GENERATED ALWAYS AS IDENTITY
+                        PRIMARY KEY,             -- Auto-increment order ID
+    ORDER_NUMBER      VARCHAR(20) NOT NULL UNIQUE, -- External order number
+    CUSTOMER_ID       INTEGER NOT NULL,         -- Foreign key to CUSTOMERS
+
+    -- Order dates
+    ORDER_DATE        DATE NOT NULL DEFAULT CURRENT_DATE, -- Date order placed
+    REQUESTED_DATE    DATE,                     -- Customer requested date
+    SHIPPED_DATE      DATE,                     -- Date order shipped
+    DELIVERY_DATE     DATE,                     -- Date delivered
+
+    -- Order amounts
+    SUBTOTAL_AMT      DECIMAL(11, 2) DEFAULT 0, -- Subtotal before tax/shipping
+    TAX_AMT           DECIMAL(9, 2) DEFAULT 0,  -- Tax amount
+    SHIPPING_AMT      DECIMAL(9, 2) DEFAULT 0,  -- Shipping charges
+    DISCOUNT_AMT      DECIMAL(9, 2) DEFAULT 0,  -- Total discount amount
+    TOTAL_AMT         DECIMAL(11, 2) DEFAULT 0, -- Final total amount
+
+    -- Shipping information
+    SHIP_TO_NAME      VARCHAR(50),              -- Ship to name
+    SHIP_ADDRESS1     VARCHAR(50),              -- Ship to address line 1
+    SHIP_ADDRESS2     VARCHAR(50),              -- Ship to address line 2
+    SHIP_CITY         VARCHAR(30),              -- Ship to city
+    SHIP_STATE        CHAR(2),                  -- Ship to state
+    SHIP_ZIP          VARCHAR(10),              -- Ship to ZIP code
+
+    -- Order status and tracking
+    ORDER_STATUS      CHAR(1) DEFAULT 'O',      -- O=Open, S=Shipped, D=Delivered, C=Cancelled
+    PAYMENT_STATUS    CHAR(1) DEFAULT 'P',      -- P=Pending, R=Received, A=Applied
+    PAYMENT_METHOD    VARCHAR(20),              -- Credit Card, Check, etc.
+    TRACKING_NUMBER   VARCHAR(30),              -- Shipping tracking number
+
+    -- Notes and references
+    ORDER_NOTES       VARCHAR(500),             -- Order notes/comments
+    PO_NUMBER         VARCHAR(30),              -- Customer PO number
+    SALES_REP_ID      INTEGER,                  -- Sales representative
+
+    -- Audit fields
+    CREATED_BY        VARCHAR(20) DEFAULT USER, -- Who created the order
+    CREATED_TIMESTAMP TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    MODIFIED_BY       VARCHAR(20),              -- Who last modified
+    MODIFIED_TIMESTAMP TIMESTAMP,               -- When last modified
+
+    -- Foreign key constraint
+    CONSTRAINT FK_ORD_CUST
+        FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMERS(CUSTOMER_ID)
+);
+
+-- =====================================================================
+-- TABLE 5: ORDERITEMS - Order line item details (was ORDER_ITEMS)
+-- =====================================================================
+CREATE TABLE JHORNER21/ORDERITEMS (
+    ORDERITEM_ID      INTEGER GENERATED ALWAYS AS IDENTITY
+                        PRIMARY KEY,             -- Auto-increment line item ID
+    ORDER_ID          INTEGER NOT NULL,         -- Foreign key to ORDERS
+    PRODUCT_ID        INTEGER NOT NULL,         -- Foreign key to PRODUCTS
+    LINE_NUMBER       SMALLINT NOT NULL,        -- Line number within order
+
+    -- Quantity and pricing
+    QTY_ORDERED       DECIMAL(9, 2) NOT NULL,   -- Quantity ordered
+    QTY_SHIPPED       DECIMAL(9, 2) DEFAULT 0,  -- Quantity shipped
+    QTY_BACKORD       DECIMAL(9, 2) DEFAULT 0,  -- Quantity backordered
+
+    UNIT_PRICE        DECIMAL(9, 2) NOT NULL,   -- Unit price for this line
+    UNIT_COST         DECIMAL(9, 2),            -- Unit cost for this line
+    DISCOUNT_PCT      DECIMAL(5, 2) DEFAULT 0,  -- Discount percentage
+    DISCOUNT_AMT      DECIMAL(9, 2) DEFAULT 0,  -- Discount amount
+
+    -- Line item details
+    PRODUCT_DESC      VARCHAR(60),              -- Product description at time of order
+    UNIT_OF_MEASURE   CHAR(3) DEFAULT 'EA',     -- Unit of measure
+
+    -- Status and notes
+    LINE_STATUS       CHAR(1) DEFAULT 'O',      -- O=Open, S=Shipped, B=Backordered, C=Cancelled
+    LINE_NOTES        VARCHAR(200),             -- Line item notes
+
+    -- Shipping details
+    REQUESTED_DATE    DATE,                     -- Line item requested date
+    SHIPPED_DATE      DATE,                     -- Line item shipped date
+
+    -- Audit fields
+    CREATED_TIME      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- Foreign key constraints
+    CONSTRAINT FK_OI_ORDER
+        FOREIGN KEY (ORDER_ID) REFERENCES ORDERS(ORDER_ID),
+    CONSTRAINT FK_OI_PROD
+        FOREIGN KEY (PRODUCT_ID) REFERENCES PRODUCTS(PRODUCT_ID),
+
+    -- Unique constraint for order/line combination
+    CONSTRAINT UK_ORD_LINE
+        UNIQUE (ORDER_ID, LINE_NUMBER)
+);
+
+-- =====================================================================
+-- CREATE INDEXES FOR PERFORMANCE - ALL NAMES 10 CHARS OR LESS
+-- =====================================================================
+
+-- Customer indexes
+CREATE INDEX CUSTCODE ON JHORNER21/CUSTOMERS (CUSTOMER_CODE);
+CREATE INDEX CUSTNAME ON JHORNER21/CUSTOMERS (LAST_NAME, FIRST_NAME);
+CREATE INDEX CUSTEMAIL ON JHORNER21/CUSTOMERS (EMAIL_ADDRESS);
+
+-- Product indexes
+CREATE INDEX PRODCODE ON JHORNER21/PRODUCTS (PRODUCT_CODE);
+CREATE INDEX PRODNAME ON JHORNER21/PRODUCTS (PRODUCT_NAME);
+CREATE INDEX PRODCAT ON JHORNER21/PRODUCTS (CATEGORY_ID);
+
+-- Order indexes
+CREATE INDEX ORDNUM ON JHORNER21/ORDERS (ORDER_NUMBER);
+CREATE INDEX ORDCUST ON JHORNER21/ORDERS (CUSTOMER_ID);
+CREATE INDEX ORDDATE ON JHORNER21/ORDERS (ORDER_DATE);
+CREATE INDEX ORDSTAT ON JHORNER21/ORDERS (ORDER_STATUS);
+
+-- Order item indexes
+CREATE INDEX OIORDER ON JHORNER21/ORDERITEMS (ORDER_ID);
+CREATE INDEX OIPROD ON JHORNER21/ORDERITEMS (PRODUCT_ID);
+
+-- =====================================================================
+-- TRAINING NOTES:
+--
+-- TABLE NAMES (ALL 10 CHARS OR LESS):
+-- - CATEGORIES (10 chars)
+-- - CUSTOMERS (9 chars)
+-- - PRODUCTS (8 chars)
+-- - ORDERS (6 chars)
+-- - ORDERITEMS (10 chars) - was ORDER_ITEMS
+--
+-- INDEX NAMES (ALL 10 CHARS OR LESS):
+-- - CUSTCODE, CUSTNAME, CUSTEMAIL
+-- - PRODCODE, PRODNAME, PRODCAT
+-- - ORDNUM, ORDCUST, ORDDATE, ORDSTAT
+-- - OIORDER, OIPROD
+--
+-- CONSTRAINT NAMES (ALL 10 CHARS OR LESS):
+-- - FK_PROD_CAT, FK_ORD_CUST, FK_OI_ORDER, FK_OI_PROD
+-- - UK_ORD_LINE
+--
+-- These tables provide excellent opportunities for:
+--
+-- 1. SIMPLE JOINS:
+--    - Customers with their orders
+--    - Products with their categories
+--    - Orders with order items
+--
+-- 2. COMPLEX JOINS:
+--    - Customer  Orders  OrderItems  Products (full order detail)
+--    - Products  Categories  OrderItems (sales by category)
+--
+-- 3. CTE EXAMPLES:
+--    - Customer lifetime value calculations
+--    - Monthly/yearly sales reporting
+--    - Top selling products by category
+--    - Customer order history analysis
+--
+-- 4. UPDATE SCENARIOS:
+--    - Update inventory when orders ship
+--    - Calculate order totals from line items
+--    - Update customer last order date
+--    - Process backorders
+--
+-- 5. RPG FREE EMBEDDED SQL:
+--    - Order entry processing
+--    - Inventory management
+--    - Customer maintenance
+--    - Reporting and analysis
+--
+-- =====================================================================

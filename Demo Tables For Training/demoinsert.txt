@@ -1,0 +1,425 @@
+-- =====================================================================
+-- Order Management System Sample Data - IBM i
+-- Library: JHORNER21 (change as needed for your environment)
+-- Formatted for IBM i QSQLSRC source member width constraints
+-- =====================================================================
+
+-- =====================================================================
+-- INSERT SAMPLE CATEGORIES
+-- =====================================================================
+INSERT INTO JHORNER21.CATEGORIES (
+    CATEGORY_CODE,
+    CATEGORY_NAME,
+    DESCRIPTION,
+    ACTIVE_FLAG,
+    CREATED_DATE
+) VALUES
+    ('ELECT', 'Electronics',
+     'Computers, phones, and electronic devices', 'Y', '2024-01-15'),
+    ('CLOTH', 'Clothing & Apparel',
+     'Shirts, pants, shoes, and accessories', 'Y', '2024-01-15'),
+    ('BOOKS', 'Books & Media',
+     'Books, magazines, DVDs, and digital media', 'Y', '2024-01-15'),
+    ('HOME', 'Home & Garden',
+     'Furniture, appliances, and garden supplies', 'Y', '2024-01-15'),
+    ('SPORTS', 'Sports & Outdoors',
+     'Athletic equipment and outdoor gear', 'Y', '2024-01-15'),
+    ('TOYS', 'Toys & Games',
+     'Children toys, board games, and puzzles', 'Y', '2024-01-15'),
+    ('AUTO', 'Automotive',
+     'Car parts, tools, and automotive accessories', 'Y', '2024-01-15'),
+    ('FOOD', 'Food & Beverage',
+     'Gourmet foods and specialty beverages', 'N', '2024-01-15');
+
+-- =====================================================================
+-- INSERT SAMPLE CUSTOMERS
+-- =====================================================================
+INSERT INTO JHORNER21.CUSTOMERS (
+    CUSTOMER_CODE, FIRST_NAME, LAST_NAME, COMPANY_NAME,
+    EMAIL_ADDRESS, PHONE_NUMBER,
+    ADDRESS_LINE1, ADDRESS_LINE2, CITY, STATE, ZIP_CODE, COUNTRY,
+    CREDIT_LIMIT, CURRENT_BALANCE, CUSTOMER_TYPE, ACTIVE_FLAG,
+    CREATED_DATE
+) VALUES
+    ('CUST001', 'Mickey', 'Mouse', NULL,
+     'mickeymouse@MySundayMorningCartoons.com', '214-555-0101',
+     '123 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     5000.00, 0.00, 'R', 'Y', '2024-01-20'),
+
+    ('CUST002', 'Bugs', 'Bunny', 'Acme Corporation',
+     'bugsbunny@MySundayMorningCartoons.com', '972-555-0102',
+     '456 Cartoon Lane', 'Suite 200', 'CartoonVille', 'TX', '12345', 'USA',
+     15000.00, 2250.75, 'B', 'Y', '2024-01-22'),
+
+    ('CUST003', 'Donald', 'Duck', NULL,
+     'donaldduck@MySundayMorningCartoons.com', '469-555-0103',
+     '789 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     7500.00, 0.00, 'R', 'Y', '2024-01-25'),
+
+    ('CUST004', 'Betty', 'Boop', 'Boop Enterprises',
+     'bettyboop@MySundayMorningCartoons.com', '214-555-0104',
+     '321 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     25000.00, 5480.25, 'W', 'Y', '2024-02-01'),
+
+    ('CUST005', 'Fred', 'Flintstone', NULL,
+     'fredflintstone@MySundayMorningCartoons.com', '972-555-0105',
+     '654 Cartoon Lane', 'Apt 3B', 'CartoonVille', 'TX', '12345', 'USA',
+     3000.00, 150.00, 'R', 'Y', '2024-02-05'),
+
+    ('CUST006', 'Wilma', 'Flintstone', 'Bedrock Consulting',
+     'wilmaflintstone@MySundayMorningCartoons.com', '469-555-0106',
+     '987 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     20000.00, 0.00, 'B', 'Y', '2024-02-10'),
+
+    ('CUST007', 'Barney', 'Rubble', NULL,
+     'barneyrubble@MySundayMorningCartoons.com', '214-555-0107',
+     '147 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     4000.00, 875.50, 'R', 'Y', '2024-02-12'),
+
+    ('CUST008', 'Scooby', 'Doo', 'Mystery Inc',
+     'scoobydoo@MySundayMorningCartoons.com', '972-555-0108',
+     '258 Cartoon Lane', 'Floor 5', 'CartoonVille', 'TX', '12345', 'USA',
+     12000.00, 3200.00, 'B', 'Y', '2024-02-15'),
+
+    ('CUST009', 'Homer', 'Simpson', NULL,
+     'homersimpson@MySundayMorningCartoons.com', '469-555-0109',
+     '369 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     6000.00, 0.00, 'R', 'Y', '2024-02-18'),
+
+    ('CUST010', 'Porky', 'Pig', NULL,
+     'porkypig@MySundayMorningCartoons.com', '214-555-0110',
+     '741 Cartoon Lane', NULL, 'CartoonVille', 'TX', '12345', 'USA',
+     2500.00, 0.00, 'R', 'N', '2024-02-20');
+
+-- =====================================================================
+-- INSERT SAMPLE PRODUCTS
+-- =====================================================================
+INSERT INTO JHORNER21.PRODUCTS (
+    PRODUCT_CODE, PRODUCT_NAME, DESCRIPTION, CATEGORY_ID,
+    UNIT_PRICE, COST_PRICE, LIST_PRICE,
+    QTY_ON_HAND, QTY_ON_ORDER, REORDER_POINT, REORDER_QTY,
+    UNIT_OF_MEASURE, WEIGHT, TAXABLE_FLAG, ACTIVE_FLAG, CREATED_DATE
+) VALUES
+    -- Electronics
+    ('LAPTOP001', 'Business Laptop 15"',
+     'High-performance laptop for business use', 1,
+     1299.99, 850.00, 1499.99, 25, 0, 5, 10,
+     'EA', 4.5, 'Y', 'Y', '2024-01-30'),
+
+    ('PHONE001', 'Smartphone Pro',
+     'Latest smartphone with advanced features', 1,
+     899.99, 600.00, 999.99, 50, 25, 10, 25,
+     'EA', 0.4, 'Y', 'Y', '2024-01-30'),
+
+    ('TABLET001', '10" Tablet',
+     'Portable tablet for work and entertainment', 1,
+     399.99, 250.00, 449.99, 30, 0, 8, 15,
+     'EA', 1.2, 'Y', 'Y', '2024-01-30'),
+
+    -- Clothing
+    ('SHIRT001', 'Business Dress Shirt',
+     'Professional cotton dress shirt', 2,
+     49.99, 22.00, 59.99, 100, 50, 20, 50,
+     'EA', 0.8, 'Y', 'Y', '2024-02-01'),
+
+    ('PANTS001', 'Khaki Dress Pants',
+     'Comfortable business casual pants', 2,
+     79.99, 35.00, 89.99, 75, 0, 15, 30,
+     'EA', 1.1, 'Y', 'Y', '2024-02-01'),
+
+    ('SHOES001', 'Leather Business Shoes',
+     'Professional leather dress shoes', 2,
+     159.99, 80.00, 199.99, 40, 20, 8, 20,
+     'EA', 2.3, 'Y', 'Y', '2024-02-01'),
+
+    -- Books
+    ('BOOK001', 'Programming Guide',
+     'Complete guide to modern programming', 3,
+     59.99, 25.00, 69.99, 200, 0, 25, 50,
+     'EA', 1.5, 'N', 'Y', '2024-02-02'),
+
+    ('BOOK002', 'Business Management',
+     'Essential business management principles', 3,
+     45.99, 20.00, 54.99, 150, 100, 20, 75,
+     'EA', 1.2, 'N', 'Y', '2024-02-02'),
+
+    -- Home & Garden
+    ('CHAIR001', 'Office Chair',
+     'Ergonomic office chair with lumbar support', 4,
+     299.99, 150.00, 349.99, 15, 10, 3, 8,
+     'EA', 25.0, 'Y', 'Y', '2024-02-03'),
+
+    ('DESK001', 'Standing Desk',
+     'Adjustable height standing desk', 4,
+     599.99, 300.00, 699.99, 8, 5, 2, 5,
+     'EA', 45.0, 'Y', 'Y', '2024-02-03'),
+
+    -- Sports
+    ('BIKE001', 'Mountain Bike',
+     'All-terrain mountain bike', 5,
+     899.99, 450.00, 1099.99, 12, 8, 3, 6,
+     'EA', 28.0, 'Y', 'Y', '2024-02-04'),
+
+    ('TENNIS001', 'Tennis Racket',
+     'Professional tennis racket', 5,
+     149.99, 75.00, 179.99, 35, 0, 8, 15,
+     'EA', 0.7, 'Y', 'Y', '2024-02-04'),
+
+    -- Toys
+    ('TOY001', 'Educational Building Set',
+     'STEM learning building blocks', 6,
+     89.99, 35.00, 109.99, 60, 30, 15, 30,
+     'EA', 2.1, 'Y', 'Y', '2024-02-05'),
+
+    ('GAME001', 'Strategy Board Game',
+     'Complex strategy game for adults', 6,
+     69.99, 30.00, 79.99, 45, 0, 10, 20,
+     'EA', 1.8, 'Y', 'Y', '2024-02-05'),
+
+    -- Automotive
+    ('AUTO001', 'Car Floor Mats',
+     'All-weather rubber floor mats', 7,
+     79.99, 35.00, 99.99, 80, 0, 15, 25,
+     'SET', 3.5, 'Y', 'Y', '2024-02-06'),
+
+    ('AUTO002', 'Motor Oil 5W-30',
+     'Synthetic blend motor oil', 7,
+     24.99, 12.00, 29.99, 120, 50, 30, 60,
+     'QT', 2.2, 'Y', 'Y', '2024-02-06');
+
+-- =====================================================================
+-- INSERT SAMPLE ORDERS
+-- =====================================================================
+INSERT INTO JHORNER21.ORDERS (
+    ORDER_NUMBER, CUSTOMER_ID, ORDER_DATE, REQUESTED_DATE, SHIPPED_DATE,
+    SUBTOTAL_AMT, TAX_AMT, SHIPPING_AMT, DISCOUNT_AMT, TOTAL_AMT,
+    SHIP_TO_NAME, SHIP_ADDRESS1, SHIP_CITY, SHIP_STATE, SHIP_ZIP,
+    ORDER_STATUS, PAYMENT_STATUS, PAYMENT_METHOD, TRACKING_NUMBER,
+    ORDER_NOTES, PO_NUMBER, SALES_REP_ID, CREATED_BY
+) VALUES
+    ('ORD-2024-001', 1, '2024-03-01', '2024-03-05', '2024-03-03',
+     1749.98, 143.12, 25.00, 0.00, 1918.10,
+     'Mickey Mouse', '123 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'D', 'R', 'Credit Card', 'TRK123456789',
+     'Rush order - customer needs by Friday', NULL, 101, 'JHORNER21'),
+
+    ('ORD-2024-002', 2, '2024-03-05', '2024-03-10', '2024-03-08',
+     2399.97, 195.99, 0.00, 100.00, 2495.96,
+     'Acme Corporation', '456 Cartoon Lane Suite 200',
+     'CartoonVille', 'TX', '12345',
+     'D', 'R', 'Company Check', 'TRK987654321',
+     'Bulk order for new office setup', 'PO-AC-2024-003', 102, 'JHORNER21'),
+
+    ('ORD-2024-003', 3, '2024-03-12', '2024-03-15', '2024-03-14',
+     229.97, 18.81, 15.00, 20.00, 243.78,
+     'Donald Duck', '789 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'D', 'R', 'Credit Card', 'TRK456789123',
+     'Birthday gift order', NULL, 101, 'JHORNER21'),
+
+    ('ORD-2024-004', 4, '2024-03-18', '2024-03-25', '2024-03-22',
+     3599.96, 294.59, 0.00, 200.00, 3694.55,
+     'Boop Enterprises', '321 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'D', 'A', 'Wire Transfer', 'TRK789123456',
+     'Equipment for conference room', 'PO-BE-2024-007', 103, 'JHORNER21'),
+
+    ('ORD-2024-005', 5, '2024-03-25', '2024-03-30', NULL,
+     179.98, 14.72, 12.50, 0.00, 207.20,
+     'Fred Flintstone', '654 Cartoon Lane Apt 3B',
+     'CartoonVille', 'TX', '12345',
+     'O', 'P', 'Credit Card', NULL,
+     'Standard delivery', NULL, 102, 'JHORNER21'),
+
+    ('ORD-2024-006', 6, '2024-04-02', '2024-04-08', '2024-04-05',
+     899.99, 73.65, 0.00, 50.00, 923.64,
+     'Bedrock Consulting', '987 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'S', 'R', 'Company Check', 'TRK321654987',
+     'Equipment for field team', 'PO-BC-2024-012', 101, 'JHORNER21'),
+
+    ('ORD-2024-007', 7, '2024-04-10', '2024-04-15', NULL,
+     569.97, 46.64, 20.00, 30.00, 606.61,
+     'Barney Rubble', '147 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'O', 'P', 'Debit Card', NULL,
+     'Home office setup', NULL, 103, 'JHORNER21'),
+
+    ('ORD-2024-008', 8, '2024-04-15', '2024-04-20', '2024-04-18',
+     1799.96, 147.39, 0.00, 0.00, 1947.35,
+     'Mystery Inc', '258 Cartoon Lane Floor 5',
+     'CartoonVille', 'TX', '12345',
+     'D', 'R', 'Company Check', 'TRK654987321',
+     'New employee equipment', 'PO-MI-2024-005', 102, 'JHORNER21'),
+
+    ('ORD-2024-009', 1, '2024-04-22', '2024-04-25', NULL,
+     159.98, 13.09, 10.00, 0.00, 183.07,
+     'Mickey Mouse', '123 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'S', 'R', 'Credit Card', 'TRK147258369',
+     'Follow-up order', NULL, 101, 'JHORNER21'),
+
+    ('ORD-2024-010', 9, '2024-04-28', '2024-05-03', NULL,
+     999.98, 81.83, 25.00, 0.00, 1106.81,
+     'Homer Simpson', '369 Cartoon Lane', 'CartoonVille', 'TX', '12345',
+     'O', 'P', 'Credit Card', NULL,
+     'Home gym equipment', NULL, 103, 'JHORNER21');
+
+-- =====================================================================
+-- INSERT SAMPLE ORDER ITEMS
+-- =====================================================================
+INSERT INTO JHORNER21.ORDERITEMS (
+    ORDER_ID, PRODUCT_ID, LINE_NUMBER,
+    QTY_ORDERED, QTY_SHIPPED, QTY_BACKORD,
+    UNIT_PRICE, UNIT_COST, DISCOUNT_PCT, DISCOUNT_AMT,
+    PRODUCT_DESC, UNIT_OF_MEASURE, LINE_STATUS, LINE_NOTES,
+    REQUESTED_DATE, SHIPPED_DATE
+) VALUES
+    -- Order 1 (Mickey Mouse) - Laptop + Phone
+    (1, 1, 1, 1.00, 1.00, 0.00, 1299.99, 850.00, 0.00, 0.00,
+     'Business Laptop 15"', 'EA', 'S', 'Expedited processing',
+     '2024-03-05', '2024-03-03'),
+    (1, 2, 2, 1.00, 1.00, 0.00, 899.99, 600.00, 5.00, 44.99,
+     'Smartphone Pro', 'EA', 'S', 'Customer loyalty discount',
+     '2024-03-05', '2024-03-03'),
+
+    -- Order 2 (Bugs Bunny) - Multiple chairs + desk
+    (2, 9, 1, 4.00, 4.00, 0.00, 299.99, 150.00, 0.00, 0.00,
+     'Office Chair', 'EA', 'S', 'Bulk order discount applied at order level',
+     '2024-03-10', '2024-03-08'),
+    (2, 10, 2, 2.00, 2.00, 0.00, 599.99, 300.00, 0.00, 0.00,
+     'Standing Desk', 'EA', 'S', 'Assembly service included',
+     '2024-03-10', '2024-03-08'),
+
+    -- Order 3 (Donald Duck) - Books + Shirt
+    (3, 7, 1, 2.00, 2.00, 0.00, 59.99, 25.00, 0.00, 0.00,
+     'Programming Guide', 'EA', 'S', 'Gift wrapping requested',
+     '2024-03-15', '2024-03-14'),
+    (3, 4, 2, 1.00, 1.00, 0.00, 49.99, 22.00, 0.00, 0.00,
+     'Business Dress Shirt', 'EA', 'S', 'Size XL',
+     '2024-03-15', '2024-03-14'),
+    (3, 8, 3, 1.00, 1.00, 0.00, 45.99, 20.00, 10.00, 4.60,
+     'Business Management', 'EA', 'S', 'Educational discount',
+     '2024-03-15', '2024-03-14'),
+
+    -- Order 4 (Betty Boop) - Laptops + Tablets
+    (4, 1, 1, 2.00, 2.00, 0.00, 1299.99, 850.00, 0.00, 0.00,
+     'Business Laptop 15"', 'EA', 'S', 'Corporate account',
+     '2024-03-25', '2024-03-22'),
+    (4, 3, 2, 3.00, 3.00, 0.00, 399.99, 250.00, 5.00, 59.99,
+     '10" Tablet', 'EA', 'S', 'Volume discount',
+     '2024-03-25', '2024-03-22'),
+
+    -- Order 5 (Fred Flintstone) - Clothing items - NOT SHIPPED YET
+    (5, 4, 1, 2.00, 0.00, 0.00, 49.99, 22.00, 0.00, 0.00,
+     'Business Dress Shirt', 'EA', 'O', 'Awaiting stock - Size L',
+     '2024-03-30', NULL),
+    (5, 5, 2, 1.00, 0.00, 0.00, 79.99, 35.00, 0.00, 0.00,
+     'Khaki Dress Pants', 'EA', 'O', 'Size 34x32',
+     '2024-03-30', NULL),
+
+    -- Order 6 (Wilma Flintstone) - Mountain Bike
+    (6, 11, 1, 1.00, 1.00, 0.00, 899.99, 450.00, 5.56, 50.00,
+     'Mountain Bike', 'EA', 'S', 'Assembly and tuning included',
+     '2024-04-08', '2024-04-05'),
+
+    -- Order 7 (Barney Rubble) - Home office setup - NOT SHIPPED
+    (7, 9, 1, 1.00, 0.00, 0.00, 299.99, 150.00, 0.00, 0.00,
+     'Office Chair', 'EA', 'O', 'Color: Black',
+     '2024-04-15', NULL),
+    (7, 1, 2, 1.00, 0.00, 0.00, 1299.99, 850.00, 10.00, 130.00,
+     'Business Laptop 15"', 'EA', 'B', 'Backordered - expected 4/20',
+     '2024-04-15', NULL),
+    (7, 12, 3, 1.00, 0.00, 0.00, 149.99, 75.00, 0.00, 0.00,
+     'Tennis Racket', 'EA', 'O', 'Upgrade to professional strings',
+     '2024-04-15', NULL),
+
+    -- Order 8 (Scooby Doo) - Employee equipment
+    (8, 1, 1, 1.00, 1.00, 0.00, 1299.99, 850.00, 0.00, 0.00,
+     'Business Laptop 15"', 'EA', 'S', 'Express delivery',
+     '2024-04-20', '2024-04-18'),
+    (8, 2, 2, 1.00, 1.00, 0.00, 899.99, 600.00, 5.56, 50.00,
+     'Smartphone Pro', 'EA', 'S', 'Corporate plan setup',
+     '2024-04-20', '2024-04-18'),
+
+    -- Order 9 (Mickey Mouse repeat) - Shoes
+    (9, 6, 1, 1.00, 1.00, 0.00, 159.99, 80.00, 0.00, 0.00,
+     'Leather Business Shoes', 'EA', 'S', 'Size 10.5D',
+     '2024-04-25', '2024-04-24'),
+
+    -- Order 10 (Homer Simpson) - Home gym - NOT SHIPPED
+    (10, 11, 1, 1.00, 0.00, 0.00, 899.99, 450.00, 0.00, 0.00,
+     'Mountain Bike', 'EA', 'O', 'Assembly required',
+     '2024-05-03', NULL),
+    (10, 13, 2, 1.00, 0.00, 0.00, 89.99, 35.00, 0.00, 0.00,
+     'Educational Building Set', 'EA', 'O', 'Gift for nephew',
+     '2024-05-03', NULL);
+
+-- =====================================================================
+-- UPDATE CUSTOMER LAST ORDER DATES
+-- =====================================================================
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-04-22'
+WHERE CUSTOMER_ID = 1;  -- Mickey Mouse (2 orders)
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-03-05'
+WHERE CUSTOMER_ID = 2;  -- Bugs Bunny
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-03-12'
+WHERE CUSTOMER_ID = 3;  -- Donald Duck
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-03-18'
+WHERE CUSTOMER_ID = 4;  -- Betty Boop
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-03-25'
+WHERE CUSTOMER_ID = 5;  -- Fred Flintstone
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-04-02'
+WHERE CUSTOMER_ID = 6;  -- Wilma Flintstone
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-04-10'
+WHERE CUSTOMER_ID = 7;  -- Barney Rubble
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-04-15'
+WHERE CUSTOMER_ID = 8;  -- Scooby Doo
+
+UPDATE JHORNER21.CUSTOMERS
+SET LAST_ORDER_DATE = '2024-04-28'
+WHERE CUSTOMER_ID = 9;  -- Homer Simpson
+
+-- Customer 10 (Porky Pig) has no orders - LAST_ORDER_DATE remains NULL
+
+-- =====================================================================
+-- UPDATE PRODUCT LAST SOLD DATES
+-- =====================================================================
+UPDATE JHORNER21.PRODUCTS
+SET LAST_SOLD_DATE = '2024-04-15'
+WHERE PRODUCT_ID = 1;  -- Laptop (multiple orders)
+
+UPDATE JHORNER21.PRODUCTS
+SET LAST_SOLD_DATE = '2024-04-15'
+WHERE PRODUCT_ID = 2;  -- Phone
+
+UPDATE JHORNER21.PRODUCTS
+SET LAST_SOLD_DATE = '2024-03-18'
+WHERE PRODUCT_ID = 3;  -- Tablet
+
+UPDATE JHORNER21.PRODUCTS
+SET LAST_SOLD_DATE = '2024-03-25'
+WHERE PRODUCT_ID = 4;  -- Shirt
+
+UPDATE JHORNER21.PRODUCTS
+SET LAST_SOLD_DATE = '2024-03-25'
+WHERE PRODUCT_ID = 5;  -- Pants
+
+UPDATE JHORNER21.PRODUCTS
+SET LAST_SOLD_DATE = '2024-04-22'
+WHERE PRODUCT_ID = 6;  -- Shoes
+
+-- Products 14, 15, 16 (Game, Auto items) have not been sold yet
+
+-- =====================================================================
+-- END OF SCRIPT
+-- =====================================================================
