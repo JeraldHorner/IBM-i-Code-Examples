@@ -1,6 +1,6 @@
 # IBM i Order Management System
 
-A complete order management database system designed for IBM i (AS/400) environments, featuring modern SQL tables, sample data, and journaling setup for training and development purposes.
+A small order management database system designed for IBM i (AS/400) environments, featuring modern SQL tables, sample data, and journaling setup for training and development purposes.
 
 ## 📋 Overview
 
