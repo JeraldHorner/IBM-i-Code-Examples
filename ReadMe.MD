@@ -6,6 +6,8 @@ Practical, working examples for modern IBM i development. Real code that runs on
 **Email:** JeraldHorner@StructuredSys.Com  
 **Phone:** 214-704-6178
 
+QUICK NOTE: Start with building these tables
+| **[Demo Tables For Training](./Demo%20Tables%20For%20Training/)** | Complete 5-table business system with relationships, sample data, and journaling | Intermediate |
 ---
 
 ## Quick Overview (TL;DR)
