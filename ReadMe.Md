@@ -28,13 +28,13 @@ Practical, working examples for modern IBM i development. Real code that runs on
 | **[AllDataTypesTable](./AllDataTypesTable/)** | CREATE TABLE and INSERT examples with common IBM i SQL data types | Beginner |
 | **[Demo Tables For Training](./Demo%20Tables%20For%20Training/)** | Complete 5-table business system with relationships, sample data, and journaling | Intermediate |
 | **[StoredProcReadInRPG](./StoredProcReadInRPG/)** | Creating SQL stored procedures and calling them from RPG Free programs | Intermediate |
+| **CursorProcessing** |(.CursorProcessing/)** | SQL cursors, fetch loops, and positioned updates | Intermediate |
 
 ### **Planned Examples**
 
 | Directory | Description | Status |
 |-----------|-------------|---------|
 | **EmbeddedSQLExamples** | Basic embedded SQL in RPG programs | Coming Soon |
-| **CursorProcessing** | SQL cursors, fetch loops, and positioned updates | Coming Soon |
 | **JSONandXMLProcessing** | Modern data format handling in IBM i | Coming Soon |
 | **DynamicSQLTechniques** | Runtime SQL generation and execution | Coming Soon |
 | **ReportingExamples** | SQL-based reporting and analytics | Coming Soon |
