@@ -31,6 +31,7 @@ QUICK NOTE: Start with building these tables
 | **[Demo Tables For Training](./Demo%20Tables%20For%20Training/)** | Complete 5-table business system with relationships, sample data, and journaling | Intermediate |
 | **[CursorProcessing](./CursorProcessing/)** | SQL cursors, fetch loops, and NULL handling with DEMOCURSOR program | Intermediate |
 | **[EmbeddedSqlExamples](./EmbeddedSqlExamples/)** | RPG Free Format with embedded Sql - single table reads, complex multi-table joins, and CTE examples | Intermediate |
+| **[EmbeddedSqlExamples](./EmbeddedSqlExamples/)** | RPG Free Format with embedded Sql - single table reads, complex multi-table joins, and CTE examples | Intermediate |
 | **[StoredProcReadInRPG](./StoredProcReadInRPG/)** | Creating SQL stored procedures and calling them from RPG Free programs | Intermediate |
 
 ### **Planned Examples**
