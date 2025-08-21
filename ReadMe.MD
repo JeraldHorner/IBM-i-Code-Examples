@@ -38,7 +38,6 @@ QUICK NOTE: Start with building these tables
 
 | Directory | Description | Status |
 |-----------|-------------|---------|
-| **JSONandXMLProcessing** | Modern data format handling in IBM i | Coming Soon |
 | **DynamicSQLTechniques** | Runtime SQL generation and execution | Coming Soon |
 | **ReportingExamples** | SQL-based reporting and analytics | Coming Soon |
 | **PerformanceOptimization** | Indexing, query tuning, and performance tips | Coming Soon |
