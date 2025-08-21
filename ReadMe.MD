@@ -12,7 +12,7 @@ QUICK NOTE: Start with building these tables
 
 ## Quick Overview (TL;DR)
 
-**Purpose:** Working IBM i code examples for SQL, RPG Free, and system integration  
+**Purpose:** Working IBM i code examples for Sql, RPG Free, and system integration  
 **Target:** IBM i developers at all skill levels  
 **Format:** Complete, runnable code with setup documentation  
 **Platform:** IBM i V7R3+ (compatibility notes provided)
@@ -30,7 +30,7 @@ QUICK NOTE: Start with building these tables
 | **[AllDataTypesTable](./AllDataTypesTable/)** | CREATE TABLE and INSERT examples with common IBM i SQL data types | Beginner |
 | **[Demo Tables For Training](./Demo%20Tables%20For%20Training/)** | Complete 5-table business system with relationships, sample data, and journaling | Intermediate |
 | **[CursorProcessing](./CursorProcessing/)** | SQL cursors, fetch loops, and NULL handling with DEMOCURSOR program | Intermediate |
-| **[EmbeddedSqlExamples](./EmbeddedSqlExamples/)** | RPG Free Format with embedded SQL - single table reads and complex multi-table joins | Intermediate |
+| **[EmbeddedSqlExamples](./EmbeddedSqlExamples/)** | RPG Free Format with embedded Sql - single table reads, complex multi-table joins, and CTE examples | Intermediate |
 | **[StoredProcReadInRPG](./StoredProcReadInRPG/)** | Creating SQL stored procedures and calling them from RPG Free programs | Intermediate |
 
 ### **Planned Examples**
@@ -48,7 +48,7 @@ QUICK NOTE: Start with building these tables
 ## Getting Started
 
 ### **Prerequisites**
-- **IBM i system** with SQL support (V7R3 or higher recommended)
+- **IBM i system** with Sql support (V7R3 or higher recommended)
 - **Development tools:** VS Code with IBM i extensions or traditional IBM i tools
 - **Authority** to create libraries and database objects
 - **Basic knowledge** of SQL and RPG concepts
@@ -78,10 +78,11 @@ IBM-i-Code-Samples/
 ├── CursorProcessing/                   # SQL cursor and NULL handling
 │   ├── README.md
 │   └── DEMOCURSOR.txt                  # RPG Free cursor example
-├── EmbeddedSQLExamples/                # RPG Free Format with embedded SQL
+├── EmbeddedSqlExamples/                # RPG Free Format with embedded Sql
 │   ├── README.md
-│   ├── DEMOCAT.txt                     # Basic SQL with single table
-│   └── DEMOJOIN.txt                    # Complex multi-table joins
+│   ├── DEMOCAT.txt                     # Basic Sql with single table
+│   ├── DEMOJOIN.txt                    # Complex multi-table joins
+│   └── DEMOCTE.txt                     # Common Table Expression demo
 ├── StoredProcReadInRPG/               # Stored procedures with RPG
 │   └── README.md
 ├── JSONandXMLProcessing/              # Coming soon
@@ -96,7 +97,7 @@ IBM-i-Code-Samples/
 ## Featured Examples
 
 ### 📊 **AllDataTypesTable**
-**What it does:** Demonstrates most common IBM i SQL data types in a single table with working sample data.
+**What it does:** Demonstrates most common IBM i Sql data types in a single table with working sample data.
 
 **Files:**
 - `README.md` - Setup instructions and documentation
@@ -136,38 +137,40 @@ IBM-i-Code-Samples/
 **Perfect for:** Learning table relationships, practicing complex JOINs, understanding business database design, journaling concepts
 
 ### 📄 **CursorProcessing**
-**What it does:** Demonstrates embedded SQL cursor processing and proper NULL data handling using the DEMOCURSOR program.
+**What it does:** Demonstrates embedded Sql cursor processing and proper NULL data handling using the DEMOCURSOR program.
 
 **Files:**
 - `README.md` - Complete documentation with expected output and training objectives
 - `DEMOCURSOR.txt` - RPG Free program source formatted for QRPGLESRC width
 
 **Key Features:**
-- ✅ **SQL Cursor Lifecycle** - DECLARE, OPEN, FETCH, CLOSE pattern
-- ✅ **NULL Handling** - Indicator variables prevent SQLSTATE 22002 errors
+- ✅ **Sql Cursor Lifecycle** - DECLARE, OPEN, FETCH, CLOSE pattern
+- ✅ **NULL Handling** - Indicator variables prevent SqlSTATE 22002 errors
 - ✅ **Real Data Processing** - Reads from CUSTOMERS table with business logic
 - ✅ **Error Prevention** - Demonstrates defensive programming techniques
 - ✅ **80-Character Width** - Source formatted for IBM i compatibility
 
-**Perfect for:** Learning cursor processing fundamentals, understanding NULL handling, preventing common SQL errors
+**Perfect for:** Learning cursor processing fundamentals, understanding NULL handling, preventing common Sql errors
 
-### 📄 **EmbeddedSQLExamples**
-**What it does:** RPG Free Format programs demonstrating embedded SQL techniques from basic single-table reads to complex multi-table joins.
+### 📄 **EmbeddedSqlExamples**
+**What it does:** RPG Free Format programs demonstrating embedded Sql techniques from basic single-table reads to complex multi-table joins and Common Table Expressions.
 
 **Files:**
 - `README.md` - Complete setup and compilation documentation
-- `DEMOCAT.txt` - Basic embedded SQL with CATEGORIES table display
+- `DEMOCAT.txt` - Basic embedded Sql with CATEGORIES table display
 - `DEMOJOIN.txt` - Complex 5-table joins showing customer order details
+- `DEMOCTE.txt` - Common Table Expression (CTE) customer analysis demo
 
 **Key Features:**
 - ✅ **Modern RPG Free Format** - Uses **FREE directive and current syntax
-- ✅ **Embedded SQL Best Practices** - Cursor processing, SQLSTATE checking, host variables
+- ✅ **Embedded Sql Best Practices** - Cursor processing, SqlSTATE checking, host variables
 - ✅ **Multi-Table Joins** - Demonstrates CUSTOMERS → ORDERS → ORDERITEMS → PRODUCTS → CATEGORIES
+- ✅ **Common Table Expressions** - CTEs with aggregation, LEFT JOIN, and business logic
 - ✅ **Error Prevention** - Uses %min() with %subst() to prevent RNX0100 string operation errors
 - ✅ **IBM i Compliance** - 52-character DSPLY limits, 10-character object names
 - ✅ **Complete Examples** - From basic concepts to production-ready patterns
 
-**Perfect for:** Learning embedded SQL fundamentals, understanding cursor processing, mastering complex joins, modern RPG development
+**Perfect for:** Learning embedded Sql fundamentals, understanding cursor processing, mastering complex joins, CTE usage, modern RPG development
 
 ### 📄 **StoredProcReadInRPG**  
 **What it does:** Shows how to create SQL stored procedures and call them from RPG Free format programs.
@@ -192,9 +195,9 @@ IBM-i-Code-Samples/
 
 ### **Code Standards**
 - **Library naming:** Examples use `MYLIBRARY` or `JHORNER21` - update to your library
-- **Source types:** SQL scripts, SQLRPGLE programs, CL procedures as appropriate
+- **Source types:** Sql scripts, SqlRPGLE programs, CL procedures as appropriate
 - **Comments:** All code includes explanatory comments and headers
-- **IBM i syntax:** Uses proper IBM i SQL dialect and conventions
+- **IBM i syntax:** Uses proper IBM i Sql dialect and conventions
 
 ## IBM i Compatibility
 
@@ -206,45 +209,46 @@ IBM-i-Code-Samples/
 ### **Feature Notes**
 - **BOOLEAN data type:** V7R1+ (alternatives provided for older versions)
 - **JSON functions:** V7R2+ 
-- **Advanced SQL features:** V7R3+ recommended
+- **Advanced Sql features:** V7R3+ recommended
 - **Journaling:** All versions support basic journaling features
 - **Compatibility notes:** Included in individual example READMEs
 
 ## Learning Path Recommendations
 
 ### **For Beginners:**
-1. Start with **AllDataTypesTable** to understand IBM i SQL basics
+1. Start with **AllDataTypesTable** to understand IBM i Sql basics
 2. Move to **Demo Tables For Training** for table relationships and business logic
-3. Try **EmbeddedSQLExamples** starting with DEMOCAT for basic embedded SQL concepts
+3. Try **EmbeddedSqlExamples** starting with DEMOCAT for basic embedded Sql concepts
 4. Continue with **CursorProcessing** to learn cursor fundamentals and NULL handling
 5. Explore the journaling features in **Demo Tables For Training**
 
 ### **For Intermediate Developers:**
 1. **Demo Tables For Training** for complex database design patterns
-2. **EmbeddedSQLExamples** for both basic (DEMOCAT) and advanced (DEMOJOIN) embedded SQL techniques
+2. **EmbeddedSqlExamples** for basic (DEMOCAT), advanced (DEMOJOIN), and CTE (DEMOCTE) embedded Sql techniques
 3. **CursorProcessing** for cursor processing and error prevention techniques
 4. **StoredProcReadInRPG** for advanced procedure techniques
-5. **DynamicSQLTechniques** for flexible applications
+5. **DynamicSqlTechniques** for flexible applications
 6. **PerformanceOptimization** for production readiness
 
 ### **For Advanced Developers:**
-1. **EmbeddedSQLExamples** DEMOJOIN for complex multi-table join patterns
+1. **EmbeddedSqlExamples** DEMOJOIN for complex multi-table join patterns and DEMOCTE for Common Table Expressions
 2. **JSONandXMLProcessing** for modern data integration
 3. **ModernizationPatterns** for legacy system updates
 4. **ReportingExamples** for business intelligence
 5. **UtilityScripts** for development automation
 
 ### **Training-Focused Path:**
-1. **AllDataTypesTable** → **Demo Tables For Training** → **EmbeddedSQLExamples** → **CursorProcessing** → **StoredProcReadInRPG**
+1. **AllDataTypesTable** → **Demo Tables For Training** → **EmbeddedSqlExamples** → **CursorProcessing** → **StoredProcReadInRPG**
 2. Use **Demo Tables For Training** for practicing:
    - Complex JOINs across multiple tables
    - CTEs for customer analysis and reporting
    - UPDATE scenarios for inventory management
-3. Use **EmbeddedSQLExamples** for practicing:
-   - Basic embedded SQL with DEMOCAT (single table reads)
+3. Use **EmbeddedSqlExamples** for practicing:
+   - Basic embedded Sql with DEMOCAT (single table reads)
    - Complex multi-table joins with DEMOJOIN (5-table business scenario)
+   - Common Table Expressions with DEMOCTE (customer analysis)
    - Modern RPG Free Format programming techniques
 4. Use **CursorProcessing** for practicing:
-   - SQL cursor lifecycle management
+   - Sql cursor lifecycle management
    - NULL data handling techniques
    - Error prevention strategies
