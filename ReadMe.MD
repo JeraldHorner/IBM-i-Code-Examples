@@ -30,7 +30,7 @@ QUICK NOTE: Start with building these tables
 | **[AllDataTypesTable](./AllDataTypesTable/)** | CREATE TABLE and INSERT examples with common IBM i SQL data types | Beginner |
 | **[Demo Tables For Training](./Demo%20Tables%20For%20Training/)** | Complete 5-table business system with relationships, sample data, and journaling | Intermediate |
 | **[CursorProcessing](./CursorProcessing/)** | SQL cursors, fetch loops, and NULL handling with DEMOCURSOR program | Intermediate |
-| **[EmbeddedSQLExamples](./EmbeddedSQLExamples/)** | RPG Free Format with embedded SQL - single table reads and complex multi-table joins | Intermediate |
+| **[EmbeddedSqlExamples](./EmbeddedSqlExamples/)** | RPG Free Format with embedded SQL - single table reads and complex multi-table joins | Intermediate |
 | **[StoredProcReadInRPG](./StoredProcReadInRPG/)** | Creating SQL stored procedures and calling them from RPG Free programs | Intermediate |
 
 ### **Planned Examples**
